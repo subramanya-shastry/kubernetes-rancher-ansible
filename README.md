@@ -94,4 +94,7 @@ You can update bootstrapPassword in rancher/tasks/main.yml if needed.
 📬 Contributions
 Feel free to fork and enhance this repo. Pull requests are welcome!
 
+📄 License
+This project is licensed under the MIT License.
+
 
