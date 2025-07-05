@@ -1,0 +1,50 @@
+- name: Install dependencies
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg
+      - lsb-release
+    update_cache: yes
+    state: present
+
+- name: Add Kubernetes apt key
+  shell: |
+    curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+  args:
+    warn: false
+
+- name: Add Kubernetes repository
+  copy:
+    dest: /etc/apt/sources.list.d/kubernetes.list
+    content: |
+      deb https://apt.kubernetes.io/ kubernetes-xenial main
+
+- name: Install Kubernetes packages
+  apt:
+    name:
+      - kubelet
+      - kubeadm
+      - kubectl
+    update_cache: yes
+    state: present
+
+- name: Hold kube packages
+  apt:
+    name: "{{ item }}"
+    state: present
+    mark_hold: yes
+  loop:
+    - kubelet
+    - kubeadm
+    - kubectl
+
+- name: Disable swap
+  command: swapoff -a
+
+- name: Remove swap entry from fstab
+  replace:
+    path: /etc/fstab
+    regexp: '^.*swap.*$'
+    replace: ''

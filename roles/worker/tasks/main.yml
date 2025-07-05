@@ -1,0 +1,9 @@
+- name: Fetch join script from master
+  fetch:
+    src: /joincluster.sh
+    dest: /tmp/joincluster.sh
+    flat: yes
+  delegate_to: k8s-master
+
+- name: Run join script
+  command: bash /tmp/joincluster.sh

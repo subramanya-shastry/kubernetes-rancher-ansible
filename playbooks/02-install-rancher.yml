@@ -1,0 +1,5 @@
+- name: Install Rancher on Kubernetes
+  hosts: master
+  become: true
+  roles:
+    - rancher

@@ -1,0 +1,6 @@
+- name: Join Worker Nodes
+  hosts: workers
+  become: true
+  roles:
+    - common
+    - worker

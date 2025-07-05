@@ -1,0 +1,6 @@
+- name: Install Kubernetes Master
+  hosts: master
+  become: true
+  roles:
+    - common
+    - master
